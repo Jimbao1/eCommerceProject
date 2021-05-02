@@ -41,6 +41,7 @@ class DefaultController extends \App\core\Controller{
                 if($user->two_FA_token == null){
                     $_SESSION['user_id'] = $user->user_id;
                     $_SESSION['username'] = $user->username;
+                    $_SESSION['role'] = $user->role;
                     $profile = new \App\models\Profile();
                     $profile = $profile->getUserProfile($user->user_id);
                     if (empty($profile)){

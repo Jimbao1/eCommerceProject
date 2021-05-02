@@ -31,6 +31,7 @@
 			}
 			?>
 		</table> <br>
+		<p><a href='<?= BASE ?>/Product/index'>View Products</a></p>
 		<p><a href='<?= BASE ?>/Default/logout'>Logout</a></p>
 		
 
