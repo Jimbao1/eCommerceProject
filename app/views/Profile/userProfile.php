@@ -32,6 +32,7 @@
 			?>
 		</table> <br>
 		<p><a href='<?= BASE ?>/Product/index'>View Products</a></p>
+		<p><a href='<?= BASE ?>/Profile/changePassword/<?= $_SESSION['username'] ?>'>Change Password</a></p>
 		<p><a href='<?= BASE ?>/Default/logout'>Logout</a></p>
 		
 

@@ -36,6 +36,11 @@ class User extends \App\core\Model{
 			return false;
 	}
 
+	public function changePassword(){
+		$stmt = self::$connection->prepare("UPDATE user SET password_hash = :password_hash WHERE username = :username");
+		$stmt->execute(['username'=>$this->username, 'password_hash'=>$this->password_hash]);
+	}
+
 	public function update2fa(){
 		$stmt = self::$connection->prepare("UPDATE user SET two_FA_token = :two_FA_token WHERE user_id = :user_id");
 		$stmt->execute(['two_FA_token'=>$this->two_FA_token,'user_id'=>$this->user_id]);

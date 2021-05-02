@@ -26,8 +26,6 @@ class DefaultController extends \App\core\Controller{
 		}
 	}
 
-
-
 	function login(){
         if(isset($_POST['action'])){
             $user = new \App\models\User();

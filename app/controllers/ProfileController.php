@@ -46,6 +46,26 @@ class ProfileController extends \App\core\Controller{
 		}
 	}
 
+	function changePassword($username){
+		if(isset($_POST["action"])){
+			$user = new \App\models\User();
+			$user = $user->findByUsername($username);
+			if (password_verify($_POST['old_password'], $user->password_hash) && 
+				$_POST["new_password"] == $_POST["password_confirm"] ){
+					$user->password_hash = password_hash($_POST['new_password'],PASSWORD_DEFAULT);
+					$user->changePassword();
+					header('location:'.BASE.'/Profile/index');
+			}else{
+					header("location:".BASE."/Profile/changePassword/$user->username"."?error=Retry!");
+			} 
+		} 
+		else{
+			$user = new \App\models\User();
+			$user = $user->findByUsername($username);
+			$this->view('Profile/changePassword',['user'=>$user]);
+		}
+	}
+
 
 	
 }
