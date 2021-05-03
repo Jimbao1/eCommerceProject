@@ -13,6 +13,7 @@
 <body>
 	<h1>List of Products</h1>
 	<p><a href='<?= BASE ?>/Profile/index'>Return to Profile</a></p>
+	<p><a href='<?= BASE ?>/User/viewCart'>My Cart</a></p>
 	<div class="container">
 		<div class="row">
 			<?php

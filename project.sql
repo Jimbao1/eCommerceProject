@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2021 at 09:55 PM
+-- Generation Time: May 03, 2021 at 03:14 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -26,42 +26,28 @@ USE `project`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cart`
---
-
-DROP TABLE IF EXISTS `cart`;
-CREATE TABLE `cart` (
-  `cart_id` int(11) NOT NULL,
-  `profile_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cart_item`
---
-
-DROP TABLE IF EXISTS `cart_item`;
-CREATE TABLE `cart_item` (
-  `cart_item_id` int(11) NOT NULL,
-  `cart_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `price` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `order_id` int(11) NOT NULL,
   `profile_id` int(11) NOT NULL,
-  `payment_confirmation` varchar(32) NOT NULL,
-  `status` varchar(32) NOT NULL
+  `payment_confirmation` varchar(64) DEFAULT NULL,
+  `status` enum('cart','paid','shipped','') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders_detail`
+--
+
+CREATE TABLE `orders_detail` (
+  `orders_detail_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `price` decimal(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -70,16 +56,28 @@ CREATE TABLE `orders` (
 -- Table structure for table `product`
 --
 
-DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `description` varchar(64) NOT NULL,
   `image` varchar(64) NOT NULL,
   `qoh` int(11) NOT NULL,
-  `price` double NOT NULL,
+  `price` decimal(5,2) NOT NULL,
   `sales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`product_id`, `name`, `description`, `image`, `qoh`, `price`, `sales`) VALUES
+(1, 'Milk', 'Nothing compares to a cold glass of fresh Natrel Milk.', '608f196a7c451.jpg', 10, '5.00', 0),
+(3, 'Water', 'The 1.5 L bottle is a great way to make sure your family always.', '608f198416a56.jpg', 30, '1.00', 0),
+(4, 'Juice', 'Minute Maid Light Lemonade. A Squeeze Above The Rest.', '608f188a3b2b2.jpg', 15, '3.00', 0),
+(5, 'Apple', 'Great for snacking, sauces, salads and baking.', '608f18e177fcd.jpg', 25, '1.00', 0),
+(6, 'Banana', 'Soft, sweet and delicious, the banana is a popular choice.', '608f13b49b631.jpg', 15, '1.00', 0),
+(7, 'Orange', 'Sweet, juicy and seedless.', '608f13e6d9063.jpg', 15, '1.00', 0),
+(8, 'Shampoo', 'Pantene Pro-V Daily Moisture Renewal Shampoo puts in more than i', '608f3a479464d.jpg', 10, '5.00', 0);
 
 -- --------------------------------------------------------
 
@@ -87,7 +85,6 @@ CREATE TABLE `product` (
 -- Table structure for table `profile`
 --
 
-DROP TABLE IF EXISTS `profile`;
 CREATE TABLE `profile` (
   `profile_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -97,13 +94,20 @@ CREATE TABLE `profile` (
   `address` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`profile_id`, `user_id`, `first_name`, `last_name`, `phone`, `address`) VALUES
+(1, 1, 'Admin', 'Admin', '514-123-4567', 'Vanier College'),
+(2, 2, 'Jhann', 'Quiambao', '514-123-4567', 'Vanier College');
+
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `review`
 --
 
-DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
   `profile_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -117,31 +121,24 @@ CREATE TABLE `review` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(64) NOT NULL,
-  `password_hash` varchar(256) NOT NULL
+  `password_hash` varchar(256) NOT NULL,
+  `role` enum('admin','user') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password_hash`, `role`) VALUES
+(1, 'admin', '$2y$10$l/WJ2iUgqfN7P.euKze4Z.0hLE36nfYmAmArOaR0MpgL0BQqmJwxe', 'admin'),
+(2, 'jhann', '$2y$10$wG/dmGYEIv/hivdLVBk4s.PYkW3oU18d9/cm/UDpkm2H4kx0u3aqO', 'user');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`cart_id`),
-  ADD KEY `cart_to_profile` (`profile_id`);
-
---
--- Indexes for table `cart_item`
---
-ALTER TABLE `cart_item`
-  ADD PRIMARY KEY (`cart_item_id`),
-  ADD KEY `cart_item_to_cart` (`cart_id`),
-  ADD KEY `cart_item_to_product` (`product_id`);
 
 --
 -- Indexes for table `orders`
@@ -149,6 +146,14 @@ ALTER TABLE `cart_item`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `orders_to_profile` (`profile_id`);
+
+--
+-- Indexes for table `orders_detail`
+--
+ALTER TABLE `orders_detail`
+  ADD PRIMARY KEY (`orders_detail_id`),
+  ADD KEY `orders_detail_to_order` (`order_id`),
+  ADD KEY `orders_detail_to_product` (`product_id`);
 
 --
 -- Indexes for table `product`
@@ -181,63 +186,51 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cart_item`
---
-ALTER TABLE `cart_item`
-  MODIFY `cart_item_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `orders_detail`
+--
+ALTER TABLE `orders_detail`
+  MODIFY `orders_detail_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `profile`
 --
 ALTER TABLE `profile`
-  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `cart`
---
-ALTER TABLE `cart`
-  ADD CONSTRAINT `cart_to_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`);
-
---
--- Constraints for table `cart_item`
---
-ALTER TABLE `cart_item`
-  ADD CONSTRAINT `cart_item_to_cart` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
-  ADD CONSTRAINT `cart_item_to_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
-
---
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_to_profile` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`);
+
+--
+-- Constraints for table `orders_detail`
+--
+ALTER TABLE `orders_detail`
+  ADD CONSTRAINT `orders_detail_to_order` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `orders_detail_to_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 
 --
 -- Constraints for table `profile`
