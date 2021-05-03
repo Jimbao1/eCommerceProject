@@ -13,7 +13,8 @@
 		<label>New password: <input type="password" name="new_password" /></label><br />
 		<label>New password confirmation: <input type="text" name="password_confirm" /></label><br />
 		
-		<input type="submit" name="action" value="change password" />
+		<input type="submit" name="action" value="Change Password" /><br>
+		<a href="<?= BASE ?>/Profile/index">Cancel</a>
 
 	</form>
 </body>

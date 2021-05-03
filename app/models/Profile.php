@@ -48,6 +48,13 @@ class Profile extends \App\core\Model{
 		return $stmt->fetchAll();
 	}
 
+	public function getUser($user_id){
+		$stmt = self::$connection->prepare("SELECT * FROM profile WHERE user_id = :user_id");
+		$stmt->execute(['user_id'=>$user_id]);
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\Profile");
+		return $stmt->fetch();
+	}
+
 	public function getSearchResults($first_name){
 		$stmt = self::$connection->prepare("SELECT * FROM profile WHERE first_name LIKE CONCAT('%', :first_name, '%')");
 		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\Profile");

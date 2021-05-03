@@ -8,8 +8,11 @@ class ProductController extends \App\core\Controller{
     {
         $product = new \App\models\Product();
 		$product = $product->getProducts();
-		$this->view('Product/index', ['product' => $product]);
-        
+		if ($_SESSION['role'] == 'admin'){
+			$this->view('Product/index', ['product' => $product]);
+		} else if ($_SESSION['role'] == 'user'){
+			$this->view('User/index', ['product' => $product]);
+		}
     }
 	
 	function create(){
@@ -90,17 +93,6 @@ class ProductController extends \App\core\Controller{
 			$this->view('Product/modify',['product'=>$product]);
 		}
 	}
-
-    // $product = new \App\models\Product();
-	// 		$product = $product->find($product_id);
-	// 		$product->name = $_POST["name"];
-	// 		$product->description = $_POST["description"];
-    //         $product->image = $_POST["image"];
-	// 		$product->qoh = $_POST["qoh"];
-	// 		$product->price = $_POST["price"];
-    //         $product->sales = $_POST["sales"];
-	// 		$product->update();
-	// 		header("location:".BASE."/Product/index/$product->profile_id");
 
     function delete($product_id){
         if(isset($_POST["action"])){
