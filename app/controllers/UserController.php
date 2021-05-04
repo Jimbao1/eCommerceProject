@@ -6,13 +6,8 @@ class UserController extends \App\core\Controller{
 
 	function index()
     {
-        // $product = new \App\models\Product();
-		// $product = $product->getProducts();
-		// if ($_SESSION['role'] == 'admin'){
-		// 	$this->view('Product/index', ['product' => $product]);
-		// } else if ($_SESSION['role'] == 'user'){
-		// 	$this->view('User/index', ['product' => $product]);
-		// }
+        $product = new \App\models\Product();
+		$product = $product->getProducts();
     }
 	
     function details($product_id){

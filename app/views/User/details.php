@@ -1,45 +1,48 @@
 <html>
-<style>
-	
-
-</style>
 
 <head>
 	<title>Product Details</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
+<style>
+	.productDetails {
+		margin-top: 50px;
+	}
+</style>
 
 <body>
-	<h1>Product Details</h1>
+	<div class="productDetails">
+		<h1 class="h3 mb-3 font-weight-normal text-center">Product Details</h1><br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Image</th>
+					<th scope="col">Name</th>
+					<th scope="col">Description</th>
+					<th scope="col">QoH</th>
+					<th scope="col">Price</th>
+					<th scope="col">Sales</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row"><img src='/eCommerceProject/uploads/<?= $data['product']->image ?>' / style='width:110px;height:150px'></th>
+					<td><?= $data['product']->name ?></td>
+					<td><?= $data['product']->description ?></td>
+					<td><?= $data['product']->qoh ?></td>
+					<td><?= $data['product']->price ?></td>
+					<td><?= $data['product']->sales ?></td>
+				</tr>
+			</tbody>
+		</table>
 
-	<dl>
-		<dt>Name</dt>
-		<dd><?=$data['product']->name ?></dd>
-	</dl>
-	<dl>
-		<dt>Description</dt>
-		<dd><?=$data['product']->description ?></dd>
-	</dl>
-	<dl>
-		<dt>Image</dt>
-		<dd><img src='/eCommerceProject/uploads/<?=$data['product']->image ?>' / style='width:110px;height:150px'></dd>
-		
-	</dl>
-	<dl>
-		<dt>QoH</dt>
-		<dd><?=$data['product']->qoh ?></dd>
-	</dl>
-	<dl>
-		<dt>Price</dt>
-		<dd><?=$data['product']->price ?></dd>
-	</dl>
-	<dl>
-		<dt>Sales</dt>
-		<dd><?=$data['product']->sales ?></dd>
-	</dl>
-
-		<p><a href='<?= BASE ?>/Product/index'>Return to List</a></p>
-
+		<div style="text-align: center">
+			<a href='<?= BASE ?>/Product/index'>Return to List</a>
+		</div>
 	</div>
+	
+
+
 </body>
 
 </html>

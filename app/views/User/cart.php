@@ -32,7 +32,7 @@
 					<td>".$item->quantity*$item->price."$</td>
 					<td>
 						<a href='".BASE."/User/details/$item->product_id' class='btn btn-primary'>Details</a>
-						<a href='".BASE."/User/removeFromCart/$item->orders_detail_id' class='btn btn-danger'>x</a>
+						<a href='".BASE."/User/removeFromCart/$item->orders_detail_id' class='btn btn-danger'>Remove</a>
 					</td>
 					</tr>
 					";
