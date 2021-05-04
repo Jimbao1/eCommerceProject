@@ -9,10 +9,23 @@ class ProductController extends \App\core\Controller{
         $product = new \App\models\Product();
 		$product = $product->getProducts();
 		if ($_SESSION['role'] == 'admin'){
-			$this->view('Product/index', ['product' => $product]);
+			if(isset($_POST["action"])){
+				$product = new \App\models\Product();
+				$product = $product->filterProductsByPrice($_POST["price1"], $_POST["price2"]);
+				$this->view('Product/index', ['product' => $product]);
+			} else {
+				$this->view('Product/index', ['product' => $product]);
+			}
 		} else if ($_SESSION['role'] == 'user'){
-			$this->view('User/index', ['product' => $product]);
+			if(isset($_POST["action"])){
+				$product = new \App\models\Product();
+				$product = $product->filterProductsByPrice($_POST["price1"], $_POST["price2"]);
+				$this->view('User/index', ['product' => $product]);
+			} else {
+				$this->view('User/index', ['product' => $product]);
+			}
 		}
+
     }
 	
 	function create(){
@@ -54,6 +67,59 @@ class ProductController extends \App\core\Controller{
         $product = $product->find($product_id);
         $this->view('Product/details', ['product'=>$product]);
 	}
+
+	function sortNamesByAscending()
+    {
+        $product = new \App\models\Product();
+		$product = $product->sortProductsByAscending();
+		if($_SESSION['role'] == 'admin'){
+			$this->view('Product/index', ['product' => $product]);
+		} 
+		else if($_SESSION['role'] == 'user'){
+			$this->view('User/index', ['product' => $product]);
+		}
+    }
+
+	function sortNamesByDescending()
+    {
+        $product = new \App\models\Product();
+		$product = $product->sortProductsByDescending();
+		if($_SESSION['role'] == 'admin'){
+			$this->view('Product/index', ['product' => $product]);
+		} 
+		else if($_SESSION['role'] == 'user'){
+			$this->view('User/index', ['product' => $product]);
+		}
+    }
+
+	// function filterByPrice(){
+	// 	if(isset($_POST["action"])){
+	// 		$product = new \App\models\Product();
+	// 		$product = $product->filterProductsByPrice($_POST["price1"], $_POST["price2"]);
+	// 		if($_SESSION['role'] == 'admin'){
+	// 			$this->view('Product/index', ['product' => $product]);
+	// 		} 
+	// 		else if($_SESSION['role'] == 'user'){
+	// 			$this->view('User/index', ['product' => $product]);
+	// 		}
+	// 	}
+	// 	// } else{
+	// 	// 	$this->view('Product/index');
+	// 	// }
+	// }
+
+	// if(isset($_POST["action"])){
+	// 	$profile = new \App\models\Profile();
+	// 	$profile->user_id = $_SESSION['user_id'];
+	// 	$profile->first_name = $_POST["first_name"];
+	// 	$profile->last_name = $_POST["last_name"];
+	// 	$profile->phone = $_POST["phone"];
+	// 	$profile->address = $_POST["address"];
+	// 	$profile->insert();
+	// 	header("location:".BASE."/Default/login");
+	// }else{
+	// 	$this->view('Profile/create');
+	// }
 
 	function modify($product_id){
 		if(isset($_POST["action"])){

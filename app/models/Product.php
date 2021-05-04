@@ -19,6 +19,27 @@ class Product extends \App\core\Model{
 		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\product");
 		return $stmt->fetchAll();	
 	}
+
+	public function sortProductsByAscending(){
+		$stmt = self::$connection->query("SELECT * FROM product ORDER BY name");
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\product");
+		return $stmt->fetchAll();	
+	}
+
+	public function sortProductsByDescending(){
+		$stmt = self::$connection->query("SELECT * FROM product ORDER BY name DESC");
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\product");
+		return $stmt->fetchAll();	
+	}
+
+	public function filterProductsByPrice($price1, $price2){
+		$stmt = self::$connection->query("SELECT * FROM product WHERE price BETWEEN $price1 AND $price2");
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\product");
+		return $stmt->fetchAll();	
+	}
+
+
+
 	public function find($product_id){
 		$stmt = self::$connection->prepare("SELECT * FROM product WHERE product_id = :product_id");
 		$stmt->execute(['product_id'=>$product_id]);

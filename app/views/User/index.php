@@ -14,6 +14,16 @@
 	<h1>List of Products</h1>
 	<p><a href='<?= BASE ?>/Profile/index'>Return to Profile</a></p>
 	<p><a href='<?= BASE ?>/User/viewCart'>My Cart</a></p>
+	<p><a href='<?= BASE ?>/Product/sortNamesByAscending'>Sort by Ascending Order</a></p>
+	<p><a href='<?= BASE ?>/Product/sortNamesByDescending'>Sort by Descending Order</a></p>
+	<p><a href='<?= BASE ?>/Product/index'>Reset Sort</a></p>
+
+	<form action="" method="post">
+		<h3>Filter by Price</h3>
+		<label>Price 1: <input type="number" name="price1" /></label><br><br>
+        <label>Price 2: <input type="number" name="price2" /></label></label>
+		<input type="submit" name="action" value="Filter Products"><br><br>
+	</form>
 	<div class="container">
 		<div class="row">
 			<?php
