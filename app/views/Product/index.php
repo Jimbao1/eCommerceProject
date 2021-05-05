@@ -39,9 +39,14 @@
 						Sort by Name
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href='<?= BASE ?>/Product/sortNamesByAscending'>Ascending</a>
-						<a class="dropdown-item" href='<?= BASE ?>/Product/sortNamesByDescending'>Descending</a>
-						<a class="dropdown-item" href='<?= BASE ?>/Product/index'>Reset</a>
+						<div style="text-align: center;">
+							<form action="" method="post">
+								<a class="dropdown-item"><input type="submit" name="ascend" value="Ascend" class='btn btn-secondary '></a>
+								<a class="dropdown-item"><input type="submit" name="descend" value="Descend" class='btn btn-secondary '></a>
+							</form>
+						</div>
+					</div>
+
 				</li>
 				<form action="" method="post">
 					<li class="nav-item dropdown">
@@ -56,6 +61,11 @@
 							</div>
 					</li>
 				</form>
+				<form action="" method="post" class="form-inline my-2 my-lg-0" style="margin-left: 500px;">
+					<input type="text" name="input" placeholder="Search" aria-label="Search">
+					<input type="submit" name="search" value="Search">
+				</form>
+
 			</ul>
 		</div>
 	</nav><br>

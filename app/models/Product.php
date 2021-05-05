@@ -38,7 +38,11 @@ class Product extends \App\core\Model{
 		return $stmt->fetchAll();	
 	}
 
-
+	public function searchByName($input){
+		$stmt = self::$connection->query("SELECT * FROM product WHERE name LIKE '%$input%'");
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\product");
+		return $stmt->fetchAll();
+	}
 
 	public function find($product_id){
 		$stmt = self::$connection->prepare("SELECT * FROM product WHERE product_id = :product_id");
