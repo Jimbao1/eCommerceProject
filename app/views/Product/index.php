@@ -32,6 +32,9 @@
 					<a class="nav-link" href='<?= BASE ?>/Profile/index'>Return to Profile</a>
 				</li>
 				<li class="nav-item">
+					<a class="nav-link" href='<?= BASE ?>/User/viewAllOrders'>View Customer Orders</a>
+				</li>
+				<li class="nav-item">
 					<a class="nav-link" href='<?= BASE ?>/Product/create'>Add Product</a>
 				</li>
 				<li class="nav-item dropdown">

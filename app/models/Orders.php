@@ -30,6 +30,13 @@ class Orders extends \App\core\Model{
 		return $stmt->fetch();
 	}
 
+	public function findOrders($profile_id){
+		$stmt = self::$connection->prepare("SELECT * FROM orders WHERE profile_id = :profile_id");
+		$stmt->execute(['profile_id'=>$profile_id]);
+		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\Orders");
+		return $stmt->fetchAll();
+	}
+
 	public function insert(){
 		$stmt = self::$connection->prepare("INSERT INTO orders(profile_id, status, payment_confirmation) VALUES (:profile_id, :status, :payment_confirmation)");
 		$stmt->execute(['profile_id'=>$this->profile_id,'status'=>$this->status, 'payment_confirmation'=>$this->payment_confirmation]);		

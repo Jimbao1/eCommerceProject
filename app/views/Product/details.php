@@ -38,7 +38,25 @@
 
 		<div style="text-align: center">
 			<a href='<?= BASE ?>/Product/index'>Return to List</a>
+			<br> <br>
 		</div>
+
+		<h1 class="h3 mb-3 font-weight-normal text-center">Reviews</h1><br>
+		<table class="table table-striped">
+			<tr><th>Profile Id</th><th>Rating</th><th>Review</th></tr>
+			<?php
+				foreach($data['reviews'] as $review)
+				{
+					echo "<tr>
+					<td>
+					<td>$review->profile_id</td>
+					<td>$review->rating</td>
+					<td>$review->review</td>
+					</tr>
+					";
+				}
+			?>
+		</table>
 	</div>
 	
 

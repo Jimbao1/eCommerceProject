@@ -110,7 +110,10 @@ class ProductController extends \App\core\Controller
 	{
 		$product = new \App\models\Product();
 		$product = $product->find($product_id);
-		$this->view('Product/details', ['product' => $product]);
+
+		$reviews = new \App\models\Review();
+		$reviews = $reviews->getReviewsForProduct($product->product_id);
+		$this->view('Product/details', ['product' => $product, 'reviews' => $reviews]);
 	}
 
 	function sortNamesByAscending()
@@ -214,6 +217,30 @@ class ProductController extends \App\core\Controller
 			$product = new \App\models\Product();
 			$product = $product->find($product_id);
 			$this->view('Product/delete', ['product' => $product]);
+		}
+	}
+
+	function makeReview($product_id)
+	{
+		if(isset($_POST['action']))
+		{
+			$profile = new \App\models\Profile();
+			$profile = $profile->getUser($_SESSION['user_id']);
+
+        	$product = new \App\models\Product();
+        	$product = $product->find($product_id);
+
+        	$review = new \App\models\Review();
+        	$review->profile_id = $profile->profile_id;
+        	$review->product_id = $product_id;
+        	$review->rating = $_POST["rating"];
+        	$review->review = $_POST["review"];
+        	$review->insert();
+        	header("location:" . BASE . "/Product/details/$product_id");
+        }
+		else
+		{
+			$this->view('Product/makeReview');
 		}
 	}
 }
