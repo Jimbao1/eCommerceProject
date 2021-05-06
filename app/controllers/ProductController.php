@@ -113,7 +113,12 @@ class ProductController extends \App\core\Controller
 
 		$reviews = new \App\models\Review();
 		$reviews = $reviews->getReviewsForProduct($product->product_id);
-		$this->view('Product/details', ['product' => $product, 'reviews' => $reviews]);
+		
+		if ($_SESSION['role'] == 'admin') {
+			$this->view('Product/details', ['product' => $product, 'reviews' => $reviews]);
+		} else if ($_SESSION['role'] == 'user') {
+			$this->view('User/details', ['product' => $product, 'reviews' => $reviews]);
+		}
 	}
 
 	function sortNamesByAscending()

@@ -9,32 +9,34 @@
 </head>
 
 <body>
-	
-	<p><a href='<?= BASE ?>/Product/index'>Go Back to Product List</a></p>
-	
+	<br>
+	<h5 style="margin-left: 50px;"><a href='<?= BASE ?>/Product/index'>Return to Product List</a></h5>
+	<br>
+
 	<div class="container">
 		<h1>My Orders</h1>
 
 		<table class="table table-striped">
-			<tr><th>Order Id</th><th>Status</th><th>Actions</th></tr>
+			<tr>
+				<th>Order Id</th>
+				<th>Status</th>
+				<th>Actions</th>
+			</tr>
 			<?php
-				if($data != null)
-				{
-					foreach($data as $item)
-					{
-						if($item->status != 'cart')
-						{
-							echo "<tr>
+			if ($data != null) {
+				foreach ($data as $item) {
+					if ($item->status != 'cart') {
+						echo "<tr>
 							<td>$item->order_id</td>
 							<td>$item->status</td>
 							<td>
-								<a href='".BASE."/User/viewOrderDetails/$item->order_id' class='btn btn-primary'>View</a>
+								<a href='" . BASE . "/User/viewOrderDetails/$item->order_id' class='btn btn-primary'>View</a>
 							</td>
 							</tr>
 							";
-						}
 					}
 				}
+			}
 			?>
 		</table>
 	</div>

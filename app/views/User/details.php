@@ -11,7 +11,9 @@
 </style>
 
 <body>
+
 	<div class="productDetails">
+		<h5 style="margin-left: 50px;"><a href='<?= BASE ?>/Product/index'>Return to Product List</a></h5>
 		<h1 class="h3 mb-3 font-weight-normal text-center">Product Details</h1><br>
 		<table class="table">
 			<thead>
@@ -36,30 +38,35 @@
 			</tbody>
 		</table>
 
+		<h1 class="h3 mb-3 font-weight-normal text-center">Product Reviews</h1>
 		<div style="text-align: center">
-			<a href='<?= BASE ?>/Product/index'>Return to List</a>
-			<br> <br>
-			<a href='<?= BASE ?>/Product/index'>Make a Review</a>
+			<a href='<?= BASE ?>/Product/makeReview/<?= $data['product']->product_id ?>'>Write a Review</a><br><br>
 		</div>
-
-		<h1 class="h3 mb-3 font-weight-normal text-center">Reviews</h1><br>
-		<table class="table table-striped">
-			<tr><th>Profile Id</th><th>Rating</th><th>Review</th></tr>
-			<?php
-				foreach($data['reviews'] as $review)
-				{
-					echo "<tr>
-					<td>
-					<td>$review->profile_id</td>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Profile Name</th>
+					<th scope="col">Rating (Out of 5)</th>
+					<th scope="col">Review</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><?php
+					foreach ($data['reviews'] as $review) {
+						echo "<tr>
+					<td>$review->first_name</td>
 					<td>$review->rating</td>
 					<td>$review->review</td>
-					</tr>
-					";
-				}
-			?>
+					</tr>";
+					}
+					?>
+				</tr>
+			</tbody>
 		</table>
+
+
 	</div>
-	
+
 
 
 </body>

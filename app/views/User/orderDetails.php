@@ -9,32 +9,40 @@
 </head>
 
 <body>
-	
-	<p><a href='<?= BASE ?>/Product/index'>Go Back to Product List</a></p>
-	
+
+	<br>
+	<h5 style="margin-left: 50px;"><a href='<?= BASE ?>/Product/index'>Return to Product List</a></h5>
+	<br>
+
 	<div class="container">
 		<h1>My Order Details</h1>
 
 		<table class="table table-striped">
-			<tr><th>Picture</th><th>Name</th><th>Quantity</th><th>Unit Price</th><th>Item Price</th></tr>
+			<tr>
+				<th>Picture</th>
+				<th>Name</th>
+				<th>Quantity</th>
+				<th>Unit Price</th>
+				<th>Item Price</th>
+			</tr>
 			<?php
 			$sum = 0;
-				foreach($data as $item)
-				{
-					echo "<tr><td><img src='".BASE."/uploads/$item->image'  / style='width:110px;height:150px'></td>
+			foreach ($data as $item) {
+				echo "<tr><td><img src='" . BASE . "/uploads/$item->image'  / style='width:110px;height:150px'></td>
 					<td>$item->name</td>
 					<td>
 						$item->quantity
 						</td>
 					<td>$item->price</td>
-					<td>".$item->quantity*$item->price."$</td>
+					<td>" . $item->quantity * $item->price . "$</td>
 					</tr>
 					";
-					$sum += $item->quantity*$item->price;
-				}
+				$sum += $item->quantity * $item->price;
+			}
 			?>
 			<tr>
-				<th colspan="4">Total: </th><th><?= $sum ?>$</th>
+				<th colspan="4">Total: </th>
+				<th><?= $sum ?>$</th>
 			</tr>
 		</table>
 	</div>

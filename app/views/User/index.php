@@ -5,7 +5,7 @@
 	}
 
 	a {
-		font-size: larger;
+		font-size: large;
 	}
 </style>
 
@@ -15,9 +15,6 @@
 </head>
 
 <body>
-	<div style="text-align:center; margin-top:30px">
-		<h1>Product Catalog</h1><br>
-	</div>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,12 +55,12 @@
 						<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="text-align:right;">
 							<a class="dropdown-item"><label>From: <input type="number" name="price1" /></label></a>
 							<a class="dropdown-item"><label>To: <input type="number" name="price2" /></a>
-							<div style="text-align:center">
+							<div style="margin-right:24px">
 								<input type="submit" name="action" value="Filter">
 							</div>
 					</li>
 				</form>
-				<form action="" method="post" class="form-inline my-2 my-lg-0" style="margin-left: 500px;">
+				<form action="" method="post" class="form-inline my-2 my-lg-0" style="margin-left: 450px;">
 					<input type="text" name="input" placeholder="Search" aria-label="Search">
 					<input type="submit" name="search" value="Search">
 				</form>

@@ -19,15 +19,15 @@
 
 	<div class="createProduct">
 		<form action="" method="post" enctype="multipart/form-data">
-			<h1 class="h3 mb-3 font-weight-normal">Add a Product</h1>
+			<h1 class="h3 mb-3 font-weight-normal">Write a Review</h1>
 
 			<label class="sr-only">Rating</label><br>
-			<input type="number" name="rating" class="form-control" placeholder="Rating" min="0" max="10" value="5">
+			<input type="number" name="rating" class="form-control" placeholder="Rating" min="0" max="5" value="0">
 
 			<label class="sr-only">Review</label><br>
-			<textarea name="review" class="form-control" placeholder="Review"></textarea>
+			<textarea name="review" class="form-control" placeholder="Review"></textarea><br>
 
-			<input type="submit" name="action" value="Add Product" class="btn btn-success btn-primary btn-block" /><br>
+			<input type="submit" name="action" value="Complete Review" class="btn btn-success btn-primary btn-block" /><br>
 			<a href="<?= BASE ?>/Product/index">Cancel</a>
 		</form>
 	</div>

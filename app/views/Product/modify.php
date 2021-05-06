@@ -36,7 +36,7 @@
 			<input type="number" name="price" class="form-control" value="<?= $data['product']->price ?>"></input><br>
 
 			<label>Sales</label>
-			<input type="number" name="sales" class="form-control" value="<?= $data['product']->sales ?>"></input><br>
+			<input type="number" name="sales" class="form-control" value="<?= $data['product']->sales ?>" readonly></input><br>
 
 			<input type="submit" name="action" value="Modify Product" class="btn btn-success btn-primary btn-block" /><br>
 			

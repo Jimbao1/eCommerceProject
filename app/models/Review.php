@@ -6,16 +6,26 @@ class Review extends \App\core\Model{
 	public $product_id;
 	public $rating;
     public $review;
+	public $first_name;
 
 	public function __construct(){
 		parent::__construct();
 	}
 
     public function getReviewsForProduct($product_id){
-		$stmt = self::$connection->prepare("SELECT * FROM review WHERE product_id = :product_id");
+		$stmt = self::$connection->prepare("SELECT review.product_id, review.rating, review.review, profile.first_name
+		FROM review 
+		INNER JOIN profile ON review.profile_id=profile.profile_id
+		WHERE review.product_id =:product_id");
 		$stmt->execute(['product_id'=>$product_id]);
 		$stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\Orders");
 		return $stmt->fetchAll();	
+
+		// $stmt = self::$connection->prepare("SELECT orders_detail.*, product.* FROM orders_detail 
+		// 	JOIN product ON orders_detail.product_id = product.product_id WHERE orders_detail.order_id = :order_id");
+		// $stmt->execute(['order_id'=>$order_id]);
+		// $stmt->setFetchMode(\PDO::FETCH_GROUP|\PDO::FETCH_CLASS, "App\\models\\Orders_detail");
+		// return $stmt->fetchAll();
 	}
 
 	public function insert(){
@@ -35,4 +45,3 @@ class Review extends \App\core\Model{
         $stmt->execute(['profile_id'=>$this->profile_id, 'product_id'=>$this->product_id]);
     }
 }
-?>

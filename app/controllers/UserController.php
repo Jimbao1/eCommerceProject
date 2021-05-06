@@ -16,7 +16,11 @@ class UserController extends \App\core\Controller{
 
         $reviews = new \App\models\Review();
         $reviews = $reviews->getReviewsForProduct($product->product_id);
-        $this->view('Product/details', ['product' => $product, 'reviews' => $reviews]);
+        if ($_SESSION['role'] == 'admin') {
+			$this->view('Product/details', ['product' => $product, 'reviews' => $reviews]);
+		} else if ($_SESSION['role'] == 'user') {
+			$this->view('User/details', ['product' => $product, 'reviews' => $reviews]);
+		}
 	}
 
     function addToCart($product_id){
@@ -134,7 +138,7 @@ class UserController extends \App\core\Controller{
             $product->qoh -= $item->quantity;
             $product->update();
         }
-        header("location:".BASE."/Profile/index");
+        header("location:".BASE."/Product/index");
     }
 
     function removeQuantity($orders_detail_id)

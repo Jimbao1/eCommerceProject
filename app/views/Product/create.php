@@ -37,7 +37,7 @@
 			<input type="number" name="price" class="form-control" placeholder="Price"></input>
 
 			<label class="sr-only">Sales</label><br>
-			<input type="number" name="sales" class="form-control" placeholder="Sales"></input><br>
+			<input type="number" name="sales" class="form-control" placeholder="Sales" value="0" readonly></input><br>
 
 			<input type="submit" name="action" value="Add Product" class="btn btn-success btn-primary btn-block" /><br>
 			<a href="<?= BASE ?>/Product/index">Cancel</a>
