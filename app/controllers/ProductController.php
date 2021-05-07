@@ -13,7 +13,7 @@ class ProductController extends \App\core\Controller
 		// admin
 		if ($_SESSION['role'] == 'admin') {
 			// filter 
-			if (isset($_POST["action"])) {
+			if (isset($_POST["action"]) && !empty($_POST["price1"]) && !empty($_POST["price2"])) {
 				$product = new \App\models\Product();
 				$product = $product->filterProductsByPrice($_POST["price1"], $_POST["price2"]);
 				$this->view('Product/index', ['product' => $product]);
@@ -42,7 +42,7 @@ class ProductController extends \App\core\Controller
 		// user
 		} else if ($_SESSION['role'] == 'user') {
 			// filter 
-			if (isset($_POST["action"])) {
+			if (isset($_POST["action"]) && !empty($_POST["price1"]) && !empty($_POST["price2"])) {
 				$product = new \App\models\Product();
 				$product = $product->filterProductsByPrice($_POST["price1"], $_POST["price2"]);
 				$this->view('User/index', ['product' => $product]);
