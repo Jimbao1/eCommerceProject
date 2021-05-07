@@ -124,19 +124,23 @@ class UserController extends \App\core\Controller{
 
         $cart = new \App\models\Orders();
         $cart = $cart->findUserCart($profile->profile_id);
-        $cart->payment_confirmation = 'confirmed';
-        $cart->status = 'paid';
-        $cart->update();
 
         $items = new \App\models\Orders_detail();
         $items = $items->findforOrder($cart->order_id);
-        foreach($items as $item)
+        if($items != null)
         {
-            $product = new \App\models\Product();
-            $product = $product->find($item->product_id);
-            $product->sales += $item->quantity;
-            $product->qoh -= $item->quantity;
-            $product->update();
+            $cart->payment_confirmation = 'confirmed';
+            $cart->status = 'paid';
+            $cart->update();
+            
+            foreach($items as $item)
+            {
+                $product = new \App\models\Product();
+                $product = $product->find($item->product_id);
+                $product->sales += $item->quantity;
+                $product->qoh -= $item->quantity;
+                $product->update();
+            }
         }
         header("location:".BASE."/Product/index");
     }
